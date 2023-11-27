@@ -3,7 +3,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import* as yup from 'yup'
-import { javascript } from 'webpack'
+
 
 const e = { // This is a dictionary of validation error messages.
   // username
@@ -39,7 +39,7 @@ const userSchema = yup.object().shape({
 // ✨ TASK: BUILD YOUR FORM SCHEMA HERE
 // The schema should use the error messages contained in the object above.
 
-const getInitialvalues = () => ({
+const getInitialValues = () => ({
   username: '',
   favLanguage: '',
   favFood: '',
@@ -122,7 +122,7 @@ useEffect(() => {
           <fieldset>
             <legend>Favorite Language:</legend>
             <label>
-              <input checked={values.favLanguage == 'javacript'}  onChange={onChange} type="radio" name="favLanguage" value="javascript" />
+              <input checked={values.favLanguage == 'javascript'}  onChange={onChange} type="radio" name="favLanguage" value="javascript" />
               JavaScript
             </label>
             <label>
