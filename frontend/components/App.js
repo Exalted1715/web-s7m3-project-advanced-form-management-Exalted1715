@@ -41,10 +41,11 @@ export default function App() {
   // You will need states to track (1) the form, (2) the validation errors,
   // (3) whether submit is disabled, (4) the success message from the server,
   // and (5) the failure message from the server.
-const [values, setValues] = useState(getInitialvalues())
+const [values, setValues] = useState(getInitialValues())
 const [errors, setErrors] = useState(getInitialErrors())
 const [serverSuccess, setServerSuccess] = useState()
 const [serverFailure, setServerFailure] = useState()
+const [formEnabled, setFormEnabled] =useState(false)
 
 
   // ✨ TASK: BUILD YOUR EFFECT HERE
@@ -57,6 +58,9 @@ const [serverFailure, setServerFailure] = useState()
     // whether the type of event target is "checkbox" and act accordingly.
     // At every change, you should validate the updated value and send the validation
     // error to the state where we track frontend validation errors.
+    let {type, name, value, checked } = evt.target
+    value = type == 'checkbox' ? checked : value
+    setValues({...values, [name]: value })
   }
 
   const onSubmit = evt => {
@@ -66,6 +70,18 @@ const [serverFailure, setServerFailure] = useState()
     // the form. You must put the success and failure messages from the server
     // in the states you have reserved for them, and the form
     // should be re-enabled.
+    evt.preventDefault()
+    axios.post('https://webapis.bloomtechdev.com/registration', values)
+    .then(res => {
+      setValues(getInitialValues())
+      setServerSuccess(res.data.message)
+      setServerFailure()
+      
+    })
+    .catch(err=> {
+      setServerFailure(err.response.data.message)
+      setServerSuccess()
+    })
   }
 
   return (
@@ -116,7 +132,7 @@ const [serverFailure, setServerFailure] = useState()
         </div>
 
         <div>
-          <input type="submit" disabled={false} />
+          <input disabled ={!formEnabled} type="submit" />
         </div>
       </form>
     </div>
