@@ -73,7 +73,7 @@ useEffect(() => {
   const onChange = evt => {
     // ✨ TASK: IMPLEMENT YOUR INPUT CHANGE HANDLER
     // The logic is a bit different for the checkbox, but you can check
-    // whether the type of event target is "checkbox" and act accordingly.
+    // whether the type of event target is "csheckbox" and act accordingly.
     // At every change, you should validate the updated value and send the validation
     // error to the state where we track frontend validation errors.
     let {type, name, value, checked } = evt.target
